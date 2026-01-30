@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -16,13 +18,17 @@ class CaptureScreen extends StatefulWidget {
 class _CaptureScreenState extends State<CaptureScreen> {
   final ImagePicker _picker = ImagePicker();
   XFile? _selectedImage;
+  Uint8List? _imageBytes; // Store image bytes for web compatibility
 
   Future<void> _pickImage(ImageSource source) async {
     try {
       final XFile? image = await _picker.pickImage(source: source);
       if (image != null) {
+        // Load image bytes for web compatibility
+        final bytes = await image.readAsBytes();
         setState(() {
           _selectedImage = image;
+          _imageBytes = bytes;
         });
       }
     } catch (e) {
@@ -36,7 +42,13 @@ class _CaptureScreenState extends State<CaptureScreen> {
     if (_selectedImage == null) return;
 
     final tutorProvider = context.read<TutorProvider>();
-    await tutorProvider.setProblemFromImage(_selectedImage!.path);
+
+    // Read image as bytes using XFile.readAsBytes() which works on both platforms
+    final bytes = await _selectedImage!.readAsBytes();
+    final base64Image = base64Encode(bytes);
+    final imagePath = 'data:image/jpeg;base64,$base64Image';
+
+    await tutorProvider.setProblemFromImage(imagePath);
 
     if (tutorProvider.error == null && tutorProvider.currentProblem != null) {
       Navigator.pushNamed(context, '/tutor');
@@ -55,7 +67,12 @@ class _CaptureScreenState extends State<CaptureScreen> {
     final tutorProvider = context.watch<TutorProvider>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Capture Problem')),
+      appBar: AppBar(
+        title: const Text('Capture Problem'),
+
+        foregroundColor: const Color(0xFF00D2FF),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -69,7 +86,10 @@ class _CaptureScreenState extends State<CaptureScreen> {
             const SizedBox(height: 24),
             if (_selectedImage != null) ...[
               Expanded(
-                child: ImagePreview(imageFile: File(_selectedImage!.path)),
+                child: ImagePreview(
+                  selectedImage: _selectedImage,
+                  imageDataBytes: _imageBytes,
+                ),
               ),
               const SizedBox(height: 24),
             ] else ...[
@@ -104,6 +124,8 @@ class _CaptureScreenState extends State<CaptureScreen> {
                     text: 'Camera',
                     icon: Icons.camera,
                     onPressed: () => _pickImage(ImageSource.camera),
+                    backgroundColor: const Color(0xFFBEFF00),
+                    foregroundColor: const Color(0xFF00D2FF),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -112,6 +134,8 @@ class _CaptureScreenState extends State<CaptureScreen> {
                     text: 'Gallery',
                     icon: Icons.photo_library,
                     onPressed: () => _pickImage(ImageSource.gallery),
+                    backgroundColor: const Color(0xFFBEFF00),
+                    foregroundColor: const Color(0xFF00D2FF),
                   ),
                 ),
               ],
@@ -123,6 +147,8 @@ class _CaptureScreenState extends State<CaptureScreen> {
                 icon: Icons.check,
                 isLoading: tutorProvider.isLoading,
                 onPressed: _processImage,
+                backgroundColor: const Color(0xFFBEFF00),
+                foregroundColor: const Color(0xFF00D2FF),
               ),
             if (tutorProvider.error != null)
               Padding(

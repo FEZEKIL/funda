@@ -1,20 +1,6 @@
-# TTS Fix TODO
-
-## Completed
-- [x] Updated Flutter audio_service.dart to call backend endpoint
-- [x] Created backend TTS service (backend/src/services/tts.service.js)
-- [x] Created backend TTS controller (backend/src/controllers/tts.controller.js)
-- [x] Created backend TTS routes (backend/src/routes/tts.routes.js)
-- [x] Updated backend config to include TTS API key
-- [x] Moved axios to production dependencies
-
-## Remaining Tasks
-- [ ] Set TTS_API_KEY environment variable in backend/.env
-- [ ] Enable Google Cloud Text-to-Speech API in Google Cloud Console
-- [ ] Test TTS functionality by running backend and Flutter app
-- [ ] Update backend URL in audio_service.dart if needed (currently localhost:5000)
-
-## Notes
-- The original error was caused by using Gemini API key for TTS API
-- TTS functionality moved to backend for security (no API key exposure in client)
-- Backend expects TTS_API_KEY environment variable
+- [x] Edit lib/features/capture/capture_screen.dart to use _selectedImage!.readAsBytes() instead of File(...).readAsBytes()
+- [x] Remove the kIsWeb check and try-catch in _processImage method
+- [x] Fix image preview on web by updating ImagePreview widget to use XFile.readAsBytes()
+- [x] Build the web app with flutter build web --release
+- [x] Deploy to Firebase Hosting
+- [x] Test the web app at https://funda-1c740.web.app to ensure image analysis works and image preview shows

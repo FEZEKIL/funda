@@ -4,7 +4,7 @@ class FeatureCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon;
-  final Color color;
+  final Color? color;
   final VoidCallback onTap;
 
   const FeatureCard({
@@ -33,7 +33,8 @@ class FeatureCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color:
+                      color?.withOpacity(0.1) ?? Colors.grey.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, size: 24, color: color),

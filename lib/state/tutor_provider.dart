@@ -21,12 +21,13 @@ class TutorProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final apiService = GeminiApiService(apiKey: Secrets.geminiApiKey);
+      final apiService = GeminiApiService();
       final explanation = await apiService.analyzeProblem(imagePath, '');
 
       _currentProblem = Problem(
         id: explanation.problemId,
-        description: 'Math problem from image', // We could extract this from the explanation
+        description:
+            'Math problem from image', // We could extract this from the explanation
         subject: 'Mathematics', // We could determine this from the API response
         imagePath: imagePath,
         createdAt: DateTime.now(),

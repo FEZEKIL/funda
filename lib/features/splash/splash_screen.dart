@@ -25,17 +25,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:  Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Logo
-            Image.asset(
-              'assets/funda_logo.png',
-              width: 150,
-              height: 150,
-            ),
+            Image.asset('assets/funda_logo.png', width: 150, height: 150),
             const SizedBox(height: 24),
             // App Name
             const Text(
@@ -43,14 +39,14 @@ class _SplashScreenState extends State<SplashScreen> {
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: const Color(0xFF00D2FF),
                 letterSpacing: 1.2,
               ),
             ),
             const SizedBox(height: 48),
             // Loading Indicator
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.black54),
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00D2FF)),
             ),
           ],
         ),

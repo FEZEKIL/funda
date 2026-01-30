@@ -1,3 +1,20 @@
+# Funda - AI Math & Physics Tutor
+
+An educational app that uses Google's Gemini API to analyze math and physics problems from images and provide step-by-step explanations.
+
+## 🔐 Important: API Key Setup
+
+**Before running the app, you need to set up your Gemini API key:**
+
+1. Go to [Google AI Studio](https://aistudio.google.com/) and create an API key
+2. Create a `.env` file in the project root with your API key:
+   ```env
+   GEMINI_API_KEY=your_actual_gemini_api_key_here
+   ```
+3. The `.env` file is already in `.gitignore` and will not be committed to GitHub
+
+---
+
 # AI Lab Assistant
 
 AI Lab Assistant is a strong, judge-friendly choice that leverages Gemini 3's multimodal capabilities to help students understand science and math concepts through visual reasoning. With a deadline of 10 Feb 2026, we have time to build something polished — not rushed.

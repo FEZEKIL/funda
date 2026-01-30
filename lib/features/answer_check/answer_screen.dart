@@ -44,9 +44,14 @@ class _AnswerScreenState extends State<AnswerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Check Your Answer'),
+
+        foregroundColor: const Color(0xFF00D2FF),
         actions: [
           IconButton(
-            icon: Icon(_showScratchpad ? Icons.edit_off : Icons.edit),
+            icon: Icon(
+              _showScratchpad ? Icons.edit_off : Icons.edit,
+              color: const Color(0xFF00D2FF),
+            ),
             onPressed: () {
               setState(() {
                 _showScratchpad = !_showScratchpad;
@@ -56,6 +61,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
           ),
         ],
       ),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Expanded(
@@ -66,18 +72,20 @@ class _AnswerScreenState extends State<AnswerScreen> {
                 children: [
                   Text(
                     'Problem: ${tutorProvider.currentProblem?.description ?? "Unknown"}',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge?.copyWith(color: Colors.black),
                   ),
                   const SizedBox(height: 16),
                   if (tutorProvider.explanation?.finalAnswer != null)
                     Text(
                       'Expected Answer: ${tutorProvider.explanation!.finalAnswer}',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontStyle: FontStyle.italic,
-                            color: Colors.grey[600],
-                          ),
+                        fontStyle: FontStyle.italic,
+                        color: Colors.grey[600],
+                      ),
                     ),
-                  
+
                   if (_showScratchpad) ...[
                     const SizedBox(height: 16),
                     const Scratchpad(height: 250),
@@ -102,6 +110,8 @@ class _AnswerScreenState extends State<AnswerScreen> {
                     text: 'Check Answer',
                     onPressed: answerProvider.isLoading ? null : _checkAnswer,
                     isLoading: answerProvider.isLoading,
+                    backgroundColor: const Color(0xFFBEFF00),
+                    foregroundColor: const Color(0xFF00D2FF),
                   ),
                   if (answerProvider.error != null)
                     Padding(
@@ -128,9 +138,16 @@ class _AnswerScreenState extends State<AnswerScreen> {
             child: Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
+                  child: ElevatedButton(
                     onPressed: () => Navigator.pushNamed(context, '/tutor'),
-                    child: const Text('Back to Steps'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF00D2FF),
+                    ),
+                    child: const Text('Back to Steps',
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),

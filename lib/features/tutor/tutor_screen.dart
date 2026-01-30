@@ -93,15 +93,18 @@ class _TutorScreenState extends State<TutorScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Step-by-Step Tutor'),
+
+        foregroundColor: const Color(0xFF00D2FF),
         actions: [
-        
           IconButton(
-            icon: const Icon(Icons.lightbulb),
+            icon: const Icon(Icons.lightbulb, color: Color(0xFF00D2FF)),
             onPressed: _showHint,
             tooltip: 'Get a hint',
           ),
         ],
+        centerTitle: true,
       ),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Expanded(
@@ -112,7 +115,10 @@ class _TutorScreenState extends State<TutorScreen> {
                 children: [
                   Text(
                     'Problem: ${tutorProvider.currentProblem?.description ?? "Unknown"}',
-                    style: Theme.of(context).textTheme.titleLarge,
+
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge?.copyWith(color: Colors.black),
                   ),
                   const SizedBox(height: 16),
                   StepCard(step: currentStep),
@@ -157,13 +163,20 @@ class _TutorScreenState extends State<TutorScreen> {
                   children: [
                     if (_currentStepIndex > 0)
                       Expanded(
-                        child: OutlinedButton(
+                        child: ElevatedButton(
                           onPressed: () {
                             setState(() {
                               _currentStepIndex--;
                             });
                           },
-                          child: const Text('Previous'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF00D2FF),
+                          ),
+                          child: const Text('Previous',
+                          style: TextStyle(
+                            color: Colors.white
+                          ),
+                          ),
                         ),
                       ),
                     if (_currentStepIndex > 0) const SizedBox(width: 16),

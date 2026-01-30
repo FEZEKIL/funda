@@ -9,7 +9,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AI Lab Assistant'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('AI Lab Assistant'),
+        centerTitle: true,
+      
+        foregroundColor: const Color(0xFF00D2FF),
+      ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -17,12 +23,16 @@ class HomeScreen extends StatelessWidget {
           children: [
             Text(
               'Welcome to your AI Math & Physics Tutor!',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: Colors.black,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               'Take a photo of your problem and get step-by-step help.',
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: const Color(0xFF00D2FF)),
             ),
             const SizedBox(height: 24),
             Expanded(
@@ -35,14 +45,14 @@ class HomeScreen extends StatelessWidget {
                     title: 'Capture Problem',
                     subtitle: 'Take a photo or upload',
                     icon: Icons.camera_alt,
-                    color: Colors.blue,
+                    color: const Color(0xFFBEFF00),
                     onTap: () => Navigator.pushNamed(context, '/capture'),
                   ),
                   FeatureCard(
                     title: 'Step-by-Step Tutor',
                     subtitle: 'Learn with guidance',
                     icon: Icons.school,
-                    color: Colors.green,
+                    color: const Color(0xFF00D2FF),
                     onTap: () {
                       final tutorProvider = context.read<TutorProvider>();
                       if (tutorProvider.currentProblem != null) {
@@ -60,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                     title: 'Check Answer',
                     subtitle: 'Verify your solution',
                     icon: Icons.check_circle,
-                    color: Colors.orange,
+                    color: const Color(0xFFBEFF00),
                     onTap: () {
                       final tutorProvider = context.read<TutorProvider>();
                       if (tutorProvider.currentProblem != null) {
@@ -78,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                     title: 'Saved Problems',
                     subtitle: 'Review past work',
                     icon: Icons.history,
-                    color: Colors.purple,
+                    color: const Color(0xFF00D2FF),
                     onTap: () {
                       // TODO: Implement saved problems screen
                       ScaffoldMessenger.of(context).showSnackBar(

@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import '../config/secrets.dart';
 import '../data/services/gemini_api.dart';
 
 class AnswerProvider extends ChangeNotifier {
@@ -15,8 +14,6 @@ class AnswerProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-
-
   Future<void> checkAnswer(String answer, String correctAnswer) async {
     _isLoading = true;
     _error = null;
@@ -24,20 +21,20 @@ class AnswerProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final apiService = GeminiApiService(apiKey: Secrets.geminiApiKey);
+      final apiService = GeminiApiService();
       final result = await apiService.checkAnswer(answer, correctAnswer);
 
       _isCorrect = result['correct'] as bool? ?? false;
       _feedback = result['feedback'] as String?;
 
       if (_feedback == null) {
-         if (_isCorrect!) {
+        if (_isCorrect!) {
           _feedback = 'Great job! Your answer is correct. 🎉';
         } else {
-          _feedback = 'Not quite right. The answer should be closer to: $correctAnswer';
+          _feedback =
+              'Not quite right. The answer should be closer to: $correctAnswer';
         }
       }
-      
     } catch (e) {
       _error = 'Failed to check answer: $e';
     } finally {
