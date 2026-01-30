@@ -1,17 +1,21 @@
 # Funda - AI Math & Physics Tutor
 
+⚠️ **Security Warning**: This repository contains a placeholder for the Gemini API key. **Never commit your actual API key to version control.**
+
 An educational app that uses Google's Gemini API to analyze math and physics problems from images and provide step-by-step explanations.
 
 ## 🔐 Important: API Key Setup
 
-**Before running the app, you need to set up your Gemini API key:**
+**Before running the app, you MUST set up your Gemini API key securely:**
 
 1. Go to [Google AI Studio](https://aistudio.google.com/) and create an API key
-2. Create a `.env` file in the project root with your API key:
-   ```env
-   GEMINI_API_KEY=your_actual_gemini_api_key_here
+2. Open `lib/config/secrets.dart`
+3. Replace `'YOUR_API_KEY_HERE'` with your actual API key:
+   ```dart
+   static const String geminiApiKey = 'your_actual_gemini_api_key_here';
    ```
-3. The `.env` file is already in `.gitignore` and will not be committed to GitHub
+4. **Important**: Never commit your actual API key to version control
+5. The `secrets.dart` file contains a placeholder and is safe to commit
 
 ---
 
