@@ -16,6 +16,7 @@ An educational app that uses Google's Gemini API to analyze math and physics pro
    ```
 4. **Important**: Never commit your actual API key to version control
 5. The `secrets.dart` file contains a placeholder and is safe to commit
+6. See `.env.example` for the expected format (this file is safe to commit)
 
 ---
 
